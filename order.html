@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ご注文フォーム | 万木村農園</title> 
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/home.js" defer></script>
+</head>
+<body>
+
+  <div class="fixed-header is-scrolled">
+    <a href="index.html" class="header-logo">
+      <img src="images/common/logo_w.svg" alt="万木村農園">
+    </a>  
+    <button class="hamburger-menu" aria-label="メニューを開く">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <main class="order-page">
+    <div class="container order-container">
+      
+      <div class="order-header">
+        <h1 class="order-title">ご注文フォーム</h1>
+        <p class="order-desc">商品のお申し込みは、FAX またはメールフォームに<br>必要事項をご記入の上送信ください。</p>
+        
+        <div class="order-fax">
+          <span class="fax-label">FAX</span><br>
+          <span class="fax-number">046-881-5719</span>
+        </div>
+      </div>
+
+      <form action="https://api.web3forms.com/submit" method="POST" class="custom-form">
+        
+        <input type="hidden" name="access_key" value="e4609a19-da06-41fb-be79-227eb45483de">
+        
+        <input type="hidden" name="subject" value="【丸万木村農園】ホームページからの新規ご注文">
+
+        <h2 class="form-section-title">注文者</h2>
+        <table class="form-table">
+          <tr>
+            <th>お名前</th>
+            <td>
+              <div class="input-row">
+                <input type="text" name="注文者_姓" placeholder="姓" required>
+                <input type="text" name="注文者_名" placeholder="名" required>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>フリガナ</th>
+            <td>
+              <div class="input-row">
+                <input type="text" name="注文者_セイ" placeholder="セイ" required>
+                <input type="text" name="注文者_メイ" placeholder="メイ" required>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>メールアドレス</th>
+            <td><input type="email" name="注文者_メールアドレス" required></td>
+          </tr>
+          <tr>
+            <th>郵便番号</th>
+            <td><input type="text" name="注文者_郵便番号" required></td>
+          </tr>
+          <tr>
+            <th>ご住所</th>
+            <td><input type="text" name="注文者_ご住所" required></td>
+          </tr>
+          <tr>
+            <th>連絡先電話</th>
+            <td><input type="tel" name="注文者_電話番号" required></td>
+          </tr>
+          <tr>
+            <th>請求書の送付方法</th>
+            <td>
+              <div class="radio-wrap">
+                <label><input type="radio" name="請求書の送付方法" value="ご自宅用荷物に同封希望" checked> ご自宅用荷物に同封希望</label>
+                <span class="slash">/</span>
+                <label><input type="radio" name="請求書の送付方法" value="後日送付希望"> 後日送付希望</label>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <h2 class="form-section-title">送付先</h2>
+        <table class="form-table">
+          <tr>
+            <th>お名前</th>
+            <td>
+              <div class="input-row">
+                <input type="text" name="送付先_姓" placeholder="姓" required>
+                <input type="text" name="送付先_名" placeholder="名" required>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>フリガナ</th>
+            <td>
+              <div class="input-row">
+                <input type="text" name="送付先_セイ" placeholder="セイ" required>
+                <input type="text" name="送付先_メイ" placeholder="メイ" required>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>商品コード</th>
+            <td>
+              <div class="prefix-wrap">
+                <span class="prefix">K-</span>
+                <input type="text" name="商品コード" class="short-input" required>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>金 額</th>
+            <td>
+              <div class="prefix-wrap">
+                <span class="prefix">¥</span>
+                <input type="text" name="金額" class="short-input" required>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>のし</th>
+            <td>
+              <div class="radio-wrap">
+                <label><input type="radio" name="のし" value="有り"> 有り</label>
+                <label><input type="radio" name="のし" value="無し" checked> 無し</label>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>郵便番号</th>
+            <td><input type="text" name="送付先_郵便番号" required></td>
+          </tr>
+          <tr>
+            <th>ご住所</th>
+            <td><input type="text" name="送付先_ご住所" required></td>
+          </tr>
+          <tr>
+            <th>連絡先電話</th>
+            <td><input type="tel" name="送付先_電話番号" required></td>
+          </tr>
+          <tr>
+            <th>配送希望時間</th>
+            <td>
+              <div class="checkbox-grid">
+                <label><input type="radio" name="配送希望時間" value="午前中"> 午前中</label>
+                <label><input type="radio" name="配送希望時間" value="14時〜16時"> 14時〜16時</label>
+                <label><input type="radio" name="配送希望時間" value="16時〜18時"> 16時〜18時</label>
+                <label><input type="radio" name="配送希望時間" value="18時〜20時"> 18時〜20時</label>
+                <label><input type="radio" name="配送希望時間" value="19時〜21時"> 19時〜21時</label>
+                <label><input type="radio" name="配送希望時間" value="指定なし" checked> 指定なし</label>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <div class="submit-btn-wrap">
+          <button type="submit" class="btn-submit">注文送信</button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+ <footer class="site-footer">
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo"><img src="images/common/logo.svg" alt="丸万木村農園"></a>
+    </div> 
+    <p class="copyright">&copy; MARUMAN KIMURA FARM</p>
+  </footer>
+
+</body>
+</html>

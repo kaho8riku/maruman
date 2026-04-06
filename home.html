@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>万木村農園 | HOME</title> 
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&family=Yusei+Magic&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+    <script src="js/home.js" defer></script>
+</head>
+<body>
+
+  <div class="fixed-header">
+    <a href="index.html" class="header-logo">
+      <img src="images/common/logo_w.svg" alt="万木村農園">
+    </a>  
+    
+    <button class="hamburger-menu" aria-label="メニューを開く">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <header class="main-hero">    
+    
+    <ul class="hero-slider">
+      <li class="slide-1"></li>
+      <li class="slide-2"></li>
+      <li class="slide-3"></li>
+    </ul>
+
+    <div class="hero-content">
+      <div class="lead_copy">
+        <h1>三浦・毘沙門の風と土が育てた<br>季節の恵みをそのままに</h1>
+        <p>メロン・スイカ・カボチャを中心に、<br>自家製アイスや甘酢漬けまでお届けします</p>
+      </div>    
+    </div>
+
+  </header>
+
+  <main>
+    <section class="farm-concept">
+      <div class="container farm-concept-container"> 
+        <div class="concept-img js-animate-img"> 
+          <img src="images/home/066.jpg" alt="万木村農園の風景">
+        </div>
+
+        <div class="concept-text">
+          <div class="Subject_01"><h2>丸万木村農園について</h2></div>
+          <p>旧三浦市の毘沙門地区で、米・野菜・果樹栽培を行っております。 当地域では江戸時代後期から梨の栽培が始められ、県内でも指折りの産地として知られています。<br><br>こだわっているのは、土づくり。<br><br>有機質を多く含んだ肥料を使用することで根の発育を促進しています。 稲刈り後の籾殻をふんだんに入れた土壌は触るとふかふかです。<br><br>地道な作業の積み重ねにより確立された品質が評価され、ホテル等への提供も行なっています。 梨本来の甘さとシャキっとした食感で、プロの料理人からも高い評価を頂いています。<br><br>丸万木村農園に自慢の商品を、是非ご賞味ください。</p>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="products">
+      <div class="container">
+        
+        <div class="Subject_01"><h2>商品一覧</h2></div>
+        
+        <div class="product-grid">
+          
+          <a href="gift.html" class="product-card-link">
+            <article class="product-card">
+              <div class="product-img">
+                <img src="images/product/0001.jpg" alt="セット販売（メロン・スイカ・カボチャ）">
+              </div>
+              <div class="product-info">
+                <h3>セット販売</h3>
+                <p>メロン・スイカ・カボチャの季節のおすすめセット</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="" target="_blank" class="product-card-link">
+            <article class="product-card">
+              <div class="product-img">
+                <img src="images/product/ais01.jpg" alt="アイス（自家製カップ）">
+              </div>
+              <div class="product-info">
+                <h3>畑生まれのごちそう・クラフトアイス</h3>
+                <p>農園の恵みをたっぷり使った自家製カップアイス全9種類！</p>
+              </div>
+            </article>
+          </a>
+
+          <a href="" target="_blank" class="product-card-link">
+            <article class="product-card">
+              <div class="product-img">
+                <img src="images/product/0003.jpg" alt="加工品（甘酢漬け）">
+              </div>
+              <div class="product-info">
+                <h3>加工品（甘酢漬け）</h3>
+                <p>野菜の旨味を引き出した、シャキシャキ食感の甘酢漬け</p>
+              </div>
+            </article>
+          </a>
+
+        </div> 
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      
+      <a href="index.html" class="footer-logo">
+        <img src="images/common/logo.svg" alt="丸万木村農園">
+      </a>
+
+      <ul class="footer-sns">
+        <li><a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+        <li><a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+      </ul>
+
+      <div class="footer-info">
+        <p>神奈川県 三浦市 毘沙門 5-20-6-3　046-881-3210</p>
+        <p class="business-hours">
+          9:00 〜 12:00 / 13:00 〜 17:00<br>
+          <span>（土・日曜、年末年始・お盆などの長期休暇を除く）</span>
+        </p>
+      </div>
+
+      <div class="footer-btns">
+        <a href="#" target="" class="btn btn-filled">お問い合わせ</a>
+        
+        <a href="law.html" class="btn btn-outline">特定商取引に基づく表示</a>
+        <a href="privacy.html" class="btn btn-outline02">プライバシーポリシー</a>
+      </div>
+
+    </div> 
+    
+    <p class="copyright">&copy; MARUMAN KIMURA FARM</p>
+
+  </footer>
+
+</body>
+</html>
