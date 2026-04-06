@@ -817,7 +817,8 @@ body {
 }
 
 .footer-logo img {
-  width: 250px;
+  width: 200px; /* ★ 200pxくらいに数字を下げます */
+  max-width: 100%; /* ★ 絶対にはみ出さないようにする魔法 */
   height: auto;
 }
 
@@ -1079,14 +1080,25 @@ body {
   margin-right: 5px;
 }
 
-/* スマホサイズの時は2列にする */
 @media (max-width: 500px) {
   .checkbox-grid {
     grid-template-columns: repeat(2, 1fr);
   }
+  
+  /* ★追加：スマホの時は表を「縦積み」にして横幅の突っ張りをなくす！ */
+  .form-table th,
+  .form-table td {
+    display: block; /* 縦積みの魔法 */
+    width: 100%;    /* 横幅いっぱいに使う */
+    text-align: left; /* 見出しも左揃えにする */
+  }
   .form-table th {
-    font-size: 0.8rem;
-    padding: 15px 5px;
+    border-bottom: none; /* 見出しと入力欄の間の線を消す */
+    padding: 15px 10px 5px; /* 余白の調整 */
+    font-size: 0.9rem;
+  }
+  .form-table td {
+    padding: 5px 10px 15px;
   }
 }
 
