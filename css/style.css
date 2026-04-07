@@ -44,9 +44,14 @@ body {
 
 .veg {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  /* ▼ 修正箇所：GSAPの罠対策（transformの上書き防止） ▼ */
+  /* transformは使わず、上下左右0 + margin: autoでど真ん中に置く */
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  /* ▲ ここまで ▲ */
   width: auto;
   max-width: 80%;
   mix-blend-mode: multiply; 
@@ -357,14 +362,14 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
-  max-width: 1200px; /* ★ここを900pxから「1200px」にドカンと広げます！ */
+  max-width: 1200px; 
   margin: 0 auto;
 }
 
 @media (min-width: 768px) {
   .product-grid {
     grid-template-columns: repeat(3, 1fr);
-    gap: 50px; /* ★広がった分、カード同士の隙間も少し広げると息苦しくならず綺麗です */
+    gap: 50px; 
   }
 }
 
@@ -432,7 +437,6 @@ body {
   box-shadow: 0 0 20px rgba(0,0,0,0.03);
 }
 
-/* 導入・タイトル */
 .section-line {
   border: none;
   border-top: 1px solid #222;
@@ -466,7 +470,6 @@ body {
   color: #333;
 }
 
-/* ご注文の流れ */
 .gift-lp-flow {
   margin-bottom: 60px;
 }
@@ -528,9 +531,6 @@ body {
   margin: 15px 0;
 }
 
-/* =========================================
-   商品カタログ（ギフト） - ★自動整列の魔法★
-   ========================================= */
 .gift-lp-catalog {
   margin-bottom: 50px;
 }
@@ -542,10 +542,8 @@ body {
   line-height: 1.6;
 }
 
-/* ★ 魔法の自動整列Grid（これだけでスマホもPCも完璧に並びます） ★ */
 .catalog-items {
   display: grid;
-  /* 画面幅に合わせて、250px以上のカードを自動で並べられるだけ並べる魔法 */
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 30px;
   width: 100%;
@@ -558,16 +556,16 @@ body {
   background-color: #fff;
   border-radius: 8px;
   border: 2px solid transparent;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03); /* 全体にうっすら影をつけてカードっぽく */
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03); 
   box-sizing: border-box;
   transition: all 0.3s ease;
-  width: 100%; /* 箱いっぱいに広げる */
+  width: 100%; 
 }
 
 .catalog-items img {
   width: 100%;
   height: auto;
-  aspect-ratio: 4 / 3; /* 写真のサイズを揃える魔法 */
+  aspect-ratio: 4 / 3; 
   object-fit: cover;
   border: 1px solid #e0e0e0;
   margin-bottom: 15px;
@@ -581,7 +579,7 @@ body {
   align-items: flex-start;
   color: #333;
   width: 100%;
-  text-align: left; /* 左揃え */
+  text-align: left; 
 }
 
 .catalog-items h3 i {
@@ -596,12 +594,11 @@ body {
   font-weight: 700;
   font-size: 1.2rem;
   padding-left: 32px; 
-  margin-top: auto; /* 値段をカードの一番下にピタッと揃える */
+  margin-top: auto; 
   width: 100%;
-  text-align: left; /* 左揃え */
+  text-align: left; 
 }
 
-/* 選択された時のアクション */
 .catalog-items .item.is-selected {
   background-color: #f4faed;
   border: 2px solid #2b5740;
@@ -617,7 +614,6 @@ body {
   content: "\f14a";
 }
 
-/* 計算ボックス・購入ボタン */
 .gift-lp-bottom {
   margin-top: 60px;
 }
@@ -681,7 +677,6 @@ body {
   transform: translateY(-2px);
 }
 
-/* --- ギフトLP：PC用レスポンシブ --- */
 @media (min-width: 768px) {
   .gift-lp-intro .intro-title {
     font-size: 1.6rem;
@@ -697,7 +692,6 @@ body {
     padding: 60px 50px;
   }
 
-  /* ご注文の流れを横並びに */
   .flow-steps {
     flex-direction: row;
     justify-content: space-between;
@@ -807,132 +801,6 @@ body {
 }
 
 /* =========================================
-   フッター（.site-footer）
-   ========================================= */
-.site-footer {
-  position: relative;
-  padding: 80px 20px 70px;
-  background-color: #fff;
-  text-align: center;
-  overflow: hidden;
-  background-image: url("../images/common/footer-bg.png");
-  background-size: cover;
-  background-position: bottom;
-}
-
-.footer-container {
-  position: relative;
-  z-index: 10;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.footer-logo {
-  display: inline-block;
-  margin-bottom: 20px;
-}
-
-.footer-logo img {
-  width: 200px; /* ★ 200pxくらいに数字を下げます */
-  max-width: 100%; /* ★ 絶対にはみ出さないようにする魔法 */
-  height: auto;
-}
-
-.footer-sns {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 50px; /* ★ 30pxから50pxに広げて、2つのアイコンのバランスをとりました */
-  margin-bottom: 40px;
-}
-
-.footer-sns a {
-  color: #333;
-  font-size: 38px; /* ★ 28pxから38pxにドカンと大きくしました！ */
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.footer-sns a:hover {
-  color: #669d84;
-  transform: translateY(-3px);
-}
-
-.footer-info {
-  margin-bottom: 50px;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  letter-spacing: 0.05em;
-  color: #333;
-}
-
-.business-hours {
-  margin-top: 20px;
-}
-
-.business-hours span {
-  font-size: 0.85rem;
-}
-
-.footer-btns {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 40px;
-}
-
-.btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 220px;
-  padding: 16px 20px;
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
-  text-decoration: none;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-.btn-filled {
-  background-color: #669d84;
-  color: #fff;
-  border: 2px solid #669d84;
-  border-radius: 10px;
-}
-
-.btn-filled:hover {
-  opacity: 0.5; 
-}
-
-.btn-outline, .btn-outline02 {
-  background-color: #fff;
-  color: #669d84;
-  border: 1px solid #669d84;
-}
-
-.btn-outline:hover, .btn-outline02:hover {
-  background-color: #cccccc;
-  border-color: #cccccc;
-  color: #fff;
-}
-
-.copyright {
-  position: absolute; 
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px 0;
-  background-color: rgba(3, 117, 22, 0.95);
-  color: #fff;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  text-align: center;
-}
-
-/* =========================================
    ご注文フォームページ（order.html）
    ========================================= */
 .order-page {
@@ -941,11 +809,10 @@ body {
 }
 
 .order-container {
-  max-width: 700px; /* 見本のようにスッキリと幅を制限 */
+  max-width: 700px; 
   margin: 0 auto;
 }
 
-/* --- 上部のご案内 --- */
 .order-header {
   text-align: center;
   margin-bottom: 50px;
@@ -953,10 +820,9 @@ body {
 
 .order-title {
   font-size: 2rem;
-  color: #3b5f4c; /* 農園の濃い緑 */
+  color: #3b5f4c; 
   letter-spacing: 0.1em;
   margin-bottom: 20px;
-  /* 文字の下にアーチ風のボーダー */
   border-bottom: 2px solid #3b5f4c;
   display: inline-block;
   padding: 0 40px 15px;
@@ -970,10 +836,9 @@ body {
   margin-bottom: 30px;
 }
 
-/* FAX枠のデザイン */
 .order-fax {
   display: inline-block;
-  border: 1px solid #d17855; /* オレンジ系の枠 */
+  border: 1px solid #d17855; 
   border-radius: 8px;
   padding: 15px 40px;
   color: #d17855;
@@ -991,7 +856,6 @@ body {
   letter-spacing: 0.05em;
 }
 
-/* --- フォーム各セクション --- */
 .form-section-title {
   text-align: center;
   font-size: 1.2rem;
@@ -1000,7 +864,6 @@ body {
   margin: 50px 0 20px;
 }
 
-/* フォームのテーブルレイアウト */
 .form-table {
   width: 100%;
   border-collapse: collapse;
@@ -1024,13 +887,12 @@ body {
   white-space: nowrap;
 }
 
-/* 入力欄（テキストボックス） */
 .form-table input[type="text"],
 .form-table input[type="email"],
 .form-table input[type="tel"] {
   width: 100%;
   padding: 8px 10px;
-  border: 1px solid #999; /* 見本のようなグレーの枠線 */
+  border: 1px solid #999; 
   border-radius: 2px;
   font-family: inherit;
   font-size: 0.95rem;
@@ -1040,16 +902,14 @@ body {
 .form-table input[type="text"]:focus,
 .form-table input[type="email"]:focus,
 .form-table input[type="tel"]:focus {
-  border-color: #3b5f4c; /* 入力中は緑色にする */
+  border-color: #3b5f4c; 
 }
 
-/* 姓・名などを横に並べる */
 .input-row {
   display: flex;
   gap: 15px;
 }
 
-/* K- や ¥ などを枠の外に置く */
 .prefix-wrap {
   display: flex;
   align-items: center;
@@ -1061,10 +921,9 @@ body {
 }
 
 .short-input {
-  max-width: 150px; /* 金額などは短くする */
+  max-width: 150px; 
 }
 
-/* ラジオボタン（チェックボックス風）の並び */
 .radio-wrap {
   display: flex;
   align-items: center;
@@ -1075,7 +934,7 @@ body {
 
 .radio-wrap input[type="radio"] {
   margin-right: 5px;
-  transform: scale(1.2); /* 少し大きくする */
+  transform: scale(1.2); 
 }
 
 .radio-wrap .slash {
@@ -1083,7 +942,6 @@ body {
   margin: 0 10px;
 }
 
-/* 配送時間のグリッド */
 .checkbox-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1101,16 +959,15 @@ body {
     grid-template-columns: repeat(2, 1fr);
   }
   
-  /* ★追加：スマホの時は表を「縦積み」にして横幅の突っ張りをなくす！ */
   .form-table th,
   .form-table td {
-    display: block; /* 縦積みの魔法 */
-    width: 100%;    /* 横幅いっぱいに使う */
-    text-align: left; /* 見出しも左揃えにする */
+    display: block; 
+    width: 100%;    
+    text-align: left; 
   }
   .form-table th {
-    border-bottom: none; /* 見出しと入力欄の間の線を消す */
-    padding: 15px 10px 5px; /* 余白の調整 */
+    border-bottom: none; 
+    padding: 15px 10px 5px; 
     font-size: 0.9rem;
   }
   .form-table td {
@@ -1118,14 +975,13 @@ body {
   }
 }
 
-/* --- 送信ボタン --- */
 .submit-btn-wrap {
   text-align: center;
   margin-top: 50px;
 }
 
 .btn-submit {
-  background-color: #d86966; /* 見本の落ち着いた赤色 */
+  background-color: #d86966; 
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -1153,23 +1009,16 @@ body {
   overflow: hidden;
   
   background-image: url("../images/common/footer-s_bg.png");
-  
-  /* ▼ ここを変更しました！ ▼ */
-  /* 数字を 120%, 150%, 200% と増やすほど、センターを中心にズームされます！ */
   background-size: 115% auto; 
-  
-  /* 横は「中央（center）」、縦は「下（bottom）」を基準に配置する */
   background-position: center bottom;
-  
   background-repeat: no-repeat;
 }
 
-/* ▼ 画面が広いPC（768px以上）になったら、元の横長画像にすり替える！ ▼ */
 @media (min-width: 768px) {
   .site-footer {
-    padding: 80px 20px 70px; /* PC用の余白に戻す */
+    padding: 80px 20px 70px; 
     background-image: url("../images/common/footer-bg.png");
-    background-size: cover; /* PCは画面いっぱいに広げる */
+    background-size: cover; 
     background-position: center bottom;
   }
 }
