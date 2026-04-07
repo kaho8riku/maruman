@@ -6,57 +6,74 @@
   } else {
     gsap.registerPlugin(ScrollTrigger);
 
-    // ==================================================
-    // ★追加：ページ読み込み時に「SCROLL↓」をフワッと表示する
-    // （スクロールを促すために、最初から見せておきます）
-    // ==================================================
+    // 最初から「SCROLL↓」を見せておく
     gsap.to('.js-animate-scroll', { 
-      opacity: 1, 
-      visibility: 'visible', 
-      duration: 1, 
-      delay: 0.5 // 画面が開いて0.5秒後に表示
+      opacity: 1, visibility: 'visible', duration: 1, delay: 0.5 
     });
 
-    // タイムラインを作成（スクロールと連動）
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '.hero',     
-        start: 'top top',     
-        end: 'bottom top',   
-        scrub: 1,             
-        pin: true,            
-        // markers: true,     
-      },
-      onComplete: () => {
-        // ページ遷移の魔法
-        document.querySelector('.page-transition-curtain').classList.add('is-active');
-        
-        setTimeout(() => {
-          window.location.href = 'home.html';
-        }, 1000); 
-      }
+    // ページ遷移の共通処理
+    const goToNextPage = () => {
+      document.querySelector('.page-transition-curtain').classList.add('is-active');
+      setTimeout(() => {
+        window.location.href = 'home.html';
+      }, 1000); 
+    };
+
+    // ==================================================
+    // ★ ここから画面サイズによって動きを分ける魔法 ★
+    // ==================================================
+    let mm = gsap.matchMedia();
+
+    // --------------------------------------------------
+    // ▼【スマホ用】画面幅が767px以下の時のアニメーション
+    // --------------------------------------------------
+    mm.add("(max-width: 767px)", () => {
+      
+      const tlMobile = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1, pin: true
+        },
+        onComplete: goToNextPage
+      });
+
+      // 【スマホ調整用】 x（横の移動距離）、y（縦の移動距離）を微調整してください！
+      tlMobile.fromTo('.veg-1', { x: -120, y: -200 }, { x: 100, y: 250, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-2', { x: -100, y: 130 }, { x: 120, y: 150, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-3', { x: -50, y: -90 }, { x: 150, y: -270, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-4', { x: 130, y: -90 }, { x: 50, y: 120, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-5', { x: 80, y: -50 }, { x: -80, y: -380, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-6', { x: 120, y: -350 }, { x: 100, y: -300, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-7', { x: 0, y: -100 }, { x: -100, y: 150, duration: 2, ease: 'power2.out' }, 'start');
+
+      // スクロールで文字が消え、ロゴが出る
+      tlMobile.to('.js-animate-scroll', { opacity: 0, visibility: 'hidden', duration: 0.5 }, 'start+=1');
+      tlMobile.fromTo('.logo-wrapper', { opacity: 0, visibility: 'hidden' }, { opacity: 1, visibility: 'visible', duration: 0.5, ease: 'power2.out' }, '-=0.5');
     });
 
-    // 野菜のアニメーション（ご自身で調整された位置をそのまま使用しています！）
-    tl.fromTo('.veg-1', { x: -250, y: 300, }, { x: 0, y: -350, duration: 2, ease: 'power2.out' }, 'start')
-      .fromTo('.veg-2', { x: 200, y: 250, }, { x: 250, y: -300, duration: 2, ease: 'power2.out' }, 'start')
-      .fromTo('.veg-3', { x: 0, y: -450, }, { x: 420, y: -200, duration: 2, ease: 'power2.out' }, 'start')
-      .fromTo('.veg-4', { x: 190, y: -150, }, { x: -190, y: -350, duration: 2, ease: 'power2.out' }, 'start')
-      .fromTo('.veg-5', { x: -50, y: 0, }, { x: -250, y: 260, duration: 2, ease: 'power2.out' }, 'start')
-      .fromTo('.veg-6', { x: 200, y: -500, }, { x: -300, y: -420, duration: 2, ease: 'power2.out' }, 'start')
-      .fromTo('.veg-7', { x: -250, y: -550, }, { x: 150, y: 0, duration: 2, ease: 'power2.out' }, 'start')
+    // --------------------------------------------------
+    // ▼【PC用】画面幅が768px以上の時のアニメーション
+    // --------------------------------------------------
+    mm.add("(min-width: 768px)", () => {
+      
+      const tlPC = gsap.timeline({
+        scrollTrigger: {
+          trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1, pin: true
+        },
+        onComplete: goToNextPage
+      });
 
-    // ==================================================
-    // ★追加：スクロールすると、ロゴが出る前に「SCROLL↓」が消える
-    // ==================================================
-    // 野菜のアニメーション(duration: 2)の半分くらい(1秒経過時)で消え始めます
-    tl.to('.js-animate-scroll', { opacity: 0, visibility: 'hidden', duration: 0.5 }, 'start+=1')
+      // 【PC調整用】 （元々のダイナミックな動きの数値です！）
+      tlPC.fromTo('.veg-1', { x: -250, y: 300 }, { x: 0, y: -350, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-2', { x: 200, y: 250 }, { x: 250, y: -300, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-3', { x: 0, y: -450 }, { x: 420, y: -200, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-4', { x: 190, y: -150 }, { x: -190, y: -350, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-5', { x: -50, y: 0 }, { x: -250, y: 260, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-6', { x: 200, y: -500 }, { x: -300, y: -420, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-7', { x: -250, y: -550 }, { x: 150, y: 0, duration: 2, ease: 'power2.out' }, 'start');
 
-    // ロゴのアニメーション（そのまま）
-    tl.fromTo('.logo-wrapper', 
-      { opacity: 0, visibility: 'hidden' }, 
-      { opacity: 1, visibility: 'visible', duration: 0.5, ease: 'power2.out' }, 
-      '-=0.5' 
-    );
+      // スクロールで文字が消え、ロゴが出る
+      tlPC.to('.js-animate-scroll', { opacity: 0, visibility: 'hidden', duration: 0.5 }, 'start+=1');
+      tlPC.fromTo('.logo-wrapper', { opacity: 0, visibility: 'hidden' }, { opacity: 1, visibility: 'visible', duration: 0.5, ease: 'power2.out' }, '-=0.5');
+    });
   }
 }

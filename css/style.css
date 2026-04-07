@@ -52,13 +52,29 @@ body {
   mix-blend-mode: multiply; 
 }
 
-.veg-1 { width: 350px; }
-.veg-2 { width: 400px; }
-.veg-3 { width: 500px; }
-.veg-4 { width: 150px; }
-.veg-5 { width: 500px; }
-.veg-6 { width: 250px; }
-.veg-7 { width: 400px; }
+/* =========================================
+   野菜のサイズ調整（スマホとPCの切り替え）
+   ========================================= */
+
+/* ▼ 【スマホ用】画面が狭いので、元のサイズの半分くらいに縮小します */
+.veg-1 { width: 180px; } /* キャベツ */
+.veg-2 { width: 200px; } /* 小松菜 */
+.veg-3 { width: 250px; } /* 大根 */
+.veg-4 { width: 80px;  } /* 玉ねぎ */
+.veg-5 { width: 250px; } /* スイカ */
+.veg-6 { width: 120px; } /* カブ */
+.veg-7 { width: 200px; } /* メロン */
+
+/* ▼ 【PC用】画面幅が768px以上の時は、元の大きなサイズに戻す魔法 */
+@media (min-width: 768px) {
+  .veg-1 { width: 350px; }
+  .veg-2 { width: 400px; }
+  .veg-3 { width: 500px; }
+  .veg-4 { width: 150px; }
+  .veg-5 { width: 500px; }
+  .veg-6 { width: 250px; }
+  .veg-7 { width: 400px; }
+}
 
 .logo-wrapper {
   position: absolute;
@@ -220,7 +236,7 @@ body {
 }
 
 .lead_copy h1 {
-  font-size: 2rem;
+  font-size: 1.3rem;
   margin-bottom: 16px;
   letter-spacing: 0.1em;
   font-family: "Shippori Antique B1", sans-serif;
@@ -1124,4 +1140,148 @@ body {
 .btn-submit:hover {
   background-color: #c05c59;
   transform: translateY(-2px);
+}
+
+/* =========================================
+   フッター（.site-footer）
+   ========================================= */
+.site-footer {
+  position: relative;
+  padding: 80px 20px 120px; 
+  background-color: #fff;
+  text-align: center;
+  overflow: hidden;
+  
+  background-image: url("../images/common/footer-s_bg.png");
+  
+  /* ▼ ここを変更しました！ ▼ */
+  /* 数字を 120%, 150%, 200% と増やすほど、センターを中心にズームされます！ */
+  background-size: 115% auto; 
+  
+  /* 横は「中央（center）」、縦は「下（bottom）」を基準に配置する */
+  background-position: center bottom;
+  
+  background-repeat: no-repeat;
+}
+
+/* ▼ 画面が広いPC（768px以上）になったら、元の横長画像にすり替える！ ▼ */
+@media (min-width: 768px) {
+  .site-footer {
+    padding: 80px 20px 70px; /* PC用の余白に戻す */
+    background-image: url("../images/common/footer-bg.png");
+    background-size: cover; /* PCは画面いっぱいに広げる */
+    background-position: center bottom;
+  }
+}
+
+.footer-container {
+  position: relative;
+  z-index: 10;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.footer-logo img {
+  width: 200px; 
+  max-width: 100%; 
+  height: auto;
+}
+
+.footer-sns {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 50px; 
+  margin-bottom: 40px;
+}
+
+.footer-sns a {
+  color: #333;
+  font-size: 38px; 
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-sns a:hover {
+  color: #669d84;
+  transform: translateY(-3px);
+}
+
+.footer-info {
+  margin-bottom: 50px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  letter-spacing: 0.05em;
+  color: #333;
+}
+
+.business-hours {
+  margin-top: 20px;
+}
+
+.business-hours span {
+  font-size: 0.85rem;
+}
+
+.footer-btns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 220px;
+  padding: 16px 20px;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.btn-filled {
+  background-color: #669d84;
+  color: #fff;
+  border: 2px solid #669d84;
+  border-radius: 10px;
+}
+
+.btn-filled:hover {
+  opacity: 0.5; 
+}
+
+.btn-outline, .btn-outline02 {
+  background-color: #fff;
+  color: #669d84;
+  border: 1px solid #669d84;
+}
+
+.btn-outline:hover, .btn-outline02:hover {
+  background-color: #cccccc;
+  border-color: #cccccc;
+  color: #fff;
+}
+
+.copyright {
+  position: absolute; 
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 0;
+  background-color: rgba(3, 117, 22, 0.95);
+  color: #fff;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-align: center;
 }
