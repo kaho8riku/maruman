@@ -1134,3 +1134,12 @@ body {
   letter-spacing: 0.1em;
   text-align: center;
 }
+
+/* --- 送信ボタンが「無効（disabled）」の時の見た目 --- */
+.btn-submit:disabled {
+  background-color: #cccccc; /* グレーにする */
+  color: #666666; /* 文字も少し暗くする */
+  cursor: not-allowed; /* マウスを乗せても「禁止マーク」にする */
+  box-shadow: none; /* 影を消す */
+  transform: none; /* マウスを乗せてもフワッと浮かないようにする */
+}

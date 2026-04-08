@@ -39,10 +39,10 @@
       // 【スマホ調整用】 x（横の移動距離）、y（縦の移動距離）を微調整してください！
       tlMobile.fromTo('.veg-1', { x: -120, y: -200 }, { x: 100, y: 250, duration: 2, ease: 'power2.out' }, 'start')
         .fromTo('.veg-2', { x: -100, y: 130 }, { x: 120, y: 150, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-3', { x: -50, y: -90 }, { x: 150, y: -270, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-4', { x: 130, y: -90 }, { x: 50, y: 120, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-5', { x: 80, y: -50 }, { x: -80, y: -380, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-6', { x: 120, y: -350 }, { x: 100, y: -300, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-3', { x: -50, y: -90 }, { x: 180, y: -270, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-4', { x: 130, y: -70 }, { x: 50, y: 120, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-5', { x: 80, y: 100 }, { x: -80, y: -220, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-6', { x: 120, y: -200 }, { x: 100, y: -150, duration: 2, ease: 'power2.out' }, 'start')
         .fromTo('.veg-7', { x: 0, y: -100 }, { x: -100, y: 150, duration: 2, ease: 'power2.out' }, 'start');
 
       // スクロールで文字が消え、ロゴが出る
@@ -63,13 +63,13 @@
       });
 
       // 【PC調整用】 （元々のダイナミックな動きの数値です！）
-      tlPC.fromTo('.veg-1', { x: -250, y: 300 }, { x: 0, y: -350, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-2', { x: 200, y: 250 }, { x: 250, y: -300, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-3', { x: 0, y: -450 }, { x: 420, y: -200, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-4', { x: 190, y: -150 }, { x: -190, y: -350, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-5', { x: -50, y: 0 }, { x: -250, y: 260, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-6', { x: 200, y: -500 }, { x: -300, y: -420, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-7', { x: -250, y: -550 }, { x: 150, y: 0, duration: 2, ease: 'power2.out' }, 'start');
+      tlPC.fromTo('.veg-1', { x: -300, y: 270 }, { x: 0, y: -350, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-2', { x: 300, y: 250 }, { x: 250, y: -300, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-3', { x: -140, y: -250 }, { x: 420, y: -200, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-4', { x: 250, y: 0 }, { x: -250, y: -250, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-5', { x: -30, y: -30 }, { x: -250, y: 260, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-6', { x: 200, y: -300 }, { x: -500, y: -200, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-7', { x: -400, y: -350 }, { x: 250, y: 200, duration: 2, ease: 'power2.out' }, 'start');
 
       // スクロールで文字が消え、ロゴが出る
       tlPC.to('.js-animate-scroll', { opacity: 0, visibility: 'hidden', duration: 0.5 }, 'start+=1');
