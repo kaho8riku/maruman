@@ -37,13 +37,13 @@
       });
 
       // 【スマホ調整用】 x（横の移動距離）、y（縦の移動距離）を微調整してください！
-      tlMobile.fromTo('.veg-1', { x: -120, y: -200 }, { x: 100, y: 250, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-2', { x: -100, y: 130 }, { x: 120, y: 150, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-3', { x: -50, y: -90 }, { x: 180, y: -270, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-4', { x: 130, y: -70 }, { x: 50, y: 120, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-5', { x: 80, y: 100 }, { x: -80, y: -220, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-6', { x: 120, y: -200 }, { x: 100, y: -150, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-7', { x: 0, y: -100 }, { x: -100, y: 150, duration: 2, ease: 'power2.out' }, 'start');
+      tlMobile.fromTo('.veg-1', { x: -120, y: -200 }, { x: 130, y: 320, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-2', { x: -100, y: 130 }, { x: 200, y: 150, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-3', { x: -50, y: -90 }, { x: 120, y: -450, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-4', { x: 130, y: -70 }, { x: -120, y: 300, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-5', { x: 80, y: 100 }, { x: -180, y: -320, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-6', { x: 120, y: -200 }, { x: 150, y: -300, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-7', { x: 0, y: -100 }, { x: -200, y: 150, duration: 2, ease: 'power2.out' }, 'start');
 
       // スクロールで文字が消え、ロゴが出る
       tlMobile.to('.js-animate-scroll', { opacity: 0, visibility: 'hidden', duration: 0.5 }, 'start+=1');
