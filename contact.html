@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お問い合わせ | 万木村農園</title> 
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Shippori+Antique+B1&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/home.js" defer></script>
+</head>
+<body>
+
+  <div class="fixed-header is-scrolled">
+    <a href="index.html" class="header-logo">
+      <img src="images/common/logo_w.svg" alt="万木村農園">
+    </a>  
+    <button class="hamburger-menu" aria-label="メニューを開く">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <main class="contact-page">
+    <div class="container contact-container">
+      
+      <div class="contact-header">
+        <h1 class="contact-title">お問い合わせ</h1>
+        
+        <div class="contact-tel-fax">
+          <div class="tel-fax-label">電 話<br>FAX</div>
+          <div class="tel-fax-num">046-881-5719</div>
+        </div>
+      </div>
+
+      <hr class="contact-divider">
+
+      <h2 class="contact-subtitle">フォームからのお問い合わせ</h2>
+
+      <form action="https://api.web3forms.com/submit" method="POST" class="contact-form">
+        
+        <input type="hidden" name="access_key" value="e4609a19-da06-41fb-be79-227eb45483de">
+        <input type="hidden" name="subject" value="【丸万木村農園】ホームページからのお問い合わせ">
+
+        <div class="form-group">
+          <label>お名前<span class="req-star">★</span></label>
+          <input type="text" name="お名前" required>
+        </div>
+
+        <div class="form-group">
+          <label>メールアドレス<span class="req-star">★</span></label>
+          <input type="email" name="メールアドレス" required>
+        </div>
+
+        <div class="form-group">
+          <label>メッセージ<span class="req-star">★</span></label>
+          <textarea name="メッセージ" rows="8" required></textarea>
+        </div>
+
+        <p class="privacy-notice">
+          <a href="privacy.html">プライバシーポリシー</a>が適用されます。
+        </p>
+
+        <div class="submit-wrap">
+          <button type="submit" class="btn-submit-green">送 信</button>
+          <p class="req-note"><span class="req-star">★</span> は入力必須項目です</p>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <a href="index.html" class="footer-logo">
+        <img src="images/common/logo.svg" alt="丸万木村農園">
+      </a>
+      <div class="footer-info">
+        <p>神奈川県 三浦市 毘沙門 5-20-6-3</p>
+      </div>
+      <div class="footer-btns">
+        <a href="law.html" class="btn btn-outline">特定商取引に基づく表示</a>
+        <a href="privacy.html" class="btn btn-outline02">プライバシーポリシー</a>
+      </div>
+    </div> 
+    <p class="copyright">&copy; MARUMAN KIMURA FARM</p>
+  </footer>
+
+</body>
+</html>
