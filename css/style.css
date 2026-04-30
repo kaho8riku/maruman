@@ -180,7 +180,10 @@ body {
 
 @media (min-width: 768px) {
   .menu-list li a { font-size: 1.4rem; }
-  .global-menu { padding-left: 50px; }
+  .global-menu { 
+    padding-left: 60px; /* 左の余白も少し広げてバランスをとります */
+    width: 320px;       /* ▼ ★PCの時だけ、メニューの横幅を広げる！ ▼ */
+  }
 }
 
 /* =========================================
