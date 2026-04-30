@@ -1,11 +1,34 @@
 @charset "utf-8";
 
 /* =========================================
-   基本設定・共通スタイル
+   0. 全体の設定（色・フォントを一元管理）
+   ========================================= */
+:root {
+  /* ▼ 基本カラー ▼ */
+  --main-green: #097d05;        /* 濃い緑 */
+  --header-green: rgba(5, 160, 106, 0.95); /* ヘッダーの透明な緑 */
+  --text-brown: #4a2e1b;        /* 焦茶色（メニュー文字などに使用） */
+  --text-black: #333;           /* 基本の黒色 */
+  --bg-white: #fff;             /* 基本の白色 */
+  --bg-light-gray: #fcfcfc;     /* 背景用の極薄いグレー */
+
+  /* ▼ セクション別アクセントカラー ▼ */
+  --accent-red: #f92213;       /* セット販売の購入ボタンの赤 */
+  --footer-green: #f66206;     /* フッターボタン・SNSの緑 */
+  --form-green: #f60612;       /* お問い合わせフォーム・電話番号の緑 */
+  --set-title-bg: #4b8b82;     /* セット販売タイトルの青緑 */
+
+  /* ▼ フォント設定 ▼ */
+  --font-base: "Noto Sans JP", sans-serif;
+  --font-title: "Shippori Antique B1", sans-serif;
+}
+
+/* =========================================
+   1. 基本設定・共通スタイル
    ========================================= */
 body {
-  font-family: "Noto Sans JP", sans-serif;
-  color: #333;
+  font-family: var(--font-base);
+  color: var(--text-black);
 }
 
 .container {
@@ -13,8 +36,295 @@ body {
   padding: 0 20px;
 }
 
+/* --- アニメーション用クラス --- */
+.js-animate-img {
+  opacity: 0;
+  transform: translateY(50px);
+}
+
 /* =========================================
-   スプラッシュ画面（index.html）
+   2. ヘッダー（共通）
+   ========================================= */
+.fixed-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  z-index: 10000 !important; /* ハンバーガーメニューより手前 */
+  background-color: transparent; 
+  transition: background-color 0.3s ease; 
+}
+
+.fixed-header.is-scrolled {
+  background-color: var(--header-green);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);      
+}
+
+.header-logo {
+  position: absolute; 
+  top: 15px;         
+  left: 20px;        
+}
+
+.header-logo img {
+  width: 130px;
+  height: auto;
+  transition: filter 0.3s ease;
+}
+
+/* =========================================
+   ハンバーガーメニューの装飾・アニメーション
+   ========================================= */
+.hamburger-menu {
+  position: absolute;
+  top: 50%;
+  right: 30px; 
+  transform: translateY(-50%);
+  z-index: 10001; 
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger-menu span {
+  display: block;
+  position: absolute;
+  width: 24px; 
+  height: 2px;
+  background-color: var(--bg-white) !important; 
+  left: 8px; 
+  transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+  transform-origin: center; 
+}
+
+.hamburger-menu span:nth-child(1) { top: 12px; }
+.hamburger-menu span:nth-child(2) { top: 19px; }
+.hamburger-menu span:nth-child(3) { top: 26px; }
+
+/* ボタンを押した時、「×」に変形させる */
+.hamburger-menu.is-active span:nth-child(1) {
+  top: 19px;
+  transform: rotate(45deg);
+  background-color: var(--text-brown) !important; 
+}
+.hamburger-menu.is-active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger-menu.is-active span:nth-child(3) {
+  top: 19px;
+  transform: rotate(-45deg);
+  background-color: var(--text-brown) !important; 
+}
+
+/* メニューが開いている時はヘッダーを透明にする */
+.fixed-header:has(.hamburger-menu.is-active) {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 右からニョキッと出るメニュー */
+.global-menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 230px; 
+  max-width: 80%;
+  height: 100vh;
+  background-image: url('../images/common/menu_back001.jpg');
+  background-size: cover;
+  background-position: center center;
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; 
+  padding-left: 30px; 
+  transform: translateX(100%); 
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+  box-shadow: -4px 0 15px rgba(0,0,0,0.15); 
+}
+
+.global-menu.is-active {
+  transform: translateX(0);
+}
+
+.menu-list {
+  list-style: none;
+  text-align: left; 
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.menu-list li {
+  margin-bottom: 30px;
+}
+
+.menu-list li a {
+  color: var(--text-brown); 
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  font-family: var(--font-title);
+  transition: color 0.3s ease;
+  display: block;
+}
+
+.menu-list li a:hover {
+  color: var(--main-green);
+}
+
+@media (min-width: 768px) {
+  .menu-list li a { font-size: 1.4rem; }
+  .global-menu { padding-left: 50px; }
+}
+
+/* =========================================
+   3. フッター（共通）
+   ========================================= */
+.site-footer {
+  position: relative;
+  padding: 80px 20px 120px; 
+  background-color: var(--bg-white);
+  text-align: center;
+  overflow: hidden;
+  background-image: url("../images/common/footer-s_bg.png");
+  background-size: 140% auto; 
+  background-position: center bottom;
+  background-repeat: no-repeat;
+}
+
+@media (min-width: 768px) {
+  .site-footer {
+    padding: 80px 20px 70px; 
+    background-image: url("../images/common/footer-bg.png");
+    background-size: cover; 
+  }
+}
+
+.footer-container {
+  position: relative;
+  z-index: 10;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.footer-logo {
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.footer-logo img {
+  width: 280px; 
+  max-width: 100%; 
+  height: auto;
+}
+
+.footer-sns {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 50px; 
+  margin-bottom: 40px;
+}
+
+.footer-sns a {
+  color: var(--text-black);
+  font-size: 38px; 
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.footer-sns a:hover {
+  color: var(--footer-green); 
+  transform: translateY(-3px);
+}
+
+.footer-info {
+  margin-bottom: 50px;
+  font-size: 1rem;
+  line-height: 1.7;
+  letter-spacing: 0.05em;
+  color: var(--text-black);
+}
+
+.business-hours { margin-top: 20px; }
+.business-hours span { font-size: 0.85rem; }
+
+.footer-btns {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+  .footer-btns {
+    flex-direction: row; 
+    justify-content: center; 
+    gap: 30px; 
+  }
+  .footer-btns .btn {
+    width: auto; 
+    min-width: 250px; 
+  }
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 220px;
+  padding: 16px 20px;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.btn-filled {
+  background-color: var(--footer-green);
+  color: var(--bg-white);
+  border: 2px solid var(--footer-green);
+  border-radius: 10px;
+}
+
+.btn-filled:hover { opacity: 0.5; }
+
+.btn-outline, .btn-outline02 {
+  background-color: var(--bg-white);
+  color: var(--footer-green);
+  border: 1px solid var(--footer-green);
+}
+
+.btn-outline:hover, .btn-outline02:hover {
+  background-color: #cccccc;
+  border-color: #cccccc;
+  color: var(--bg-white);
+}
+
+.copyright {
+  position: absolute; 
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 15px 0;
+  background-color: var(--header-green);
+  color: var(--bg-white);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-align: center;
+}
+
+/* =========================================
+   4. スプラッシュ画面（index.html）
    ========================================= */
 .page-transition-curtain {
   position: fixed;
@@ -22,7 +332,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #fff;
+  background-color: var(--bg-white);
   z-index: 9999;
   opacity: 0;
   pointer-events: none; 
@@ -39,46 +349,7 @@ body {
   height: 100dvh;
   position: relative;
   overflow: hidden;
-  background-color: #fff;
-}
-
-.veg {
-  position: absolute;
-  /* ▼ 修正箇所：GSAPの罠対策（transformの上書き防止） ▼ */
-  /* transformは使わず、上下左右0 + margin: autoでど真ん中に置く */
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  /* ▲ ここまで ▲ */
-  width: auto;
-  max-width: 80%;
-  mix-blend-mode: multiply; 
-}
-
-/* =========================================
-   野菜のサイズ調整（スマホとPCの切り替え）
-   ========================================= */
-
-/* ▼ 【スマホ用】画面が狭いので、元のサイズの半分くらいに縮小します */
-.veg-1 { width: 180px; } /* キャベツ */
-.veg-2 { width: 200px; } /* 小松菜 */
-.veg-3 { width: 250px; } /* 大根 */
-.veg-4 { width: 80px;  } /* 玉ねぎ */
-.veg-5 { width: 250px; } /* スイカ */
-.veg-6 { width: 120px; } /* カブ */
-.veg-7 { width: 200px; } /* メロン */
-
-/* ▼ 【PC用】画面幅が768px以上の時は、元の大きなサイズに戻す魔法 */
-@media (min-width: 768px) {
-  .veg-1 { width: 350px; }
-  .veg-2 { width: 400px; }
-  .veg-3 { width: 500px; }
-  .veg-4 { width: 150px; }
-  .veg-5 { width: 500px; }
-  .veg-6 { width: 250px; }
-  .veg-7 { width: 400px; }
+  background-color: var(--bg-white);
 }
 
 .logo-wrapper {
@@ -90,9 +361,7 @@ body {
   visibility: hidden;
 }
 
-.logo-img {
-  width: 300px;
-}
+.logo-img { width: 300px; }
 
 .scrolldown-indicator {
   position: absolute;
@@ -100,7 +369,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  color: #333;
+  color: var(--text-black);
   opacity: 0; 
   visibility: hidden; 
   pointer-events: none;
@@ -126,63 +395,42 @@ body {
   100% { transform: translateY(0); opacity: 1; }
 }
 
-/* =========================================
-   ヘッダー（共通）
-   ========================================= */
-.fixed-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 70px;
-  z-index: 100;
-  background-color: transparent; 
-  transition: background-color 0.3s ease; 
-}
-
-.fixed-header.is-scrolled {
-  background-color: rgba(3, 117, 22, 0.95);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);      
-}
-
-.header-logo {
-  position: absolute; 
-  top: 15px;         
-  left: 20px;        
-}
-
-.header-logo img {
-  width: 130px;
-  height: auto;
-  transition: filter 0.3s ease;
-}
-
-.hamburger-menu {
+/* --- 野菜の配置とサイズ --- */
+.veg {
   position: absolute;
-  top: 25px;          
-  right: 20px;        
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  width: 30px;
-  height: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: auto;
+  max-width: 80%;
+  mix-blend-mode: multiply; 
 }
 
-.hamburger-menu span {
-  display: block;
-  width: 100%;
-  height: 2px;
-  background-color: #fff;
-  border-radius: 2px;
-  transition: background-color 0.3s ease; 
+.veg-1 { width: 180px; } 
+.veg-2 { width: 200px; } 
+.veg-3 { width: 250px; } 
+.veg-4 { width: 80px;  } 
+.veg-5 { width: 250px; } 
+.veg-6 { width: 120px; } 
+.veg-7 { width: 200px; } 
+
+@media (min-width: 768px) {
+  .veg-1 { width: 350px; }
+  .veg-2 { width: 400px; }
+  .veg-3 { width: 500px; }
+  .veg-4 { width: 150px; }
+  .veg-5 { width: 500px; }
+  .veg-6 { width: 250px; }
+  .veg-7 { width: 400px; }
 }
 
 /* =========================================
-   メインヒーロー（home.html）
+   5. HOME画面（home.html）
    ========================================= */
+
+/* --- メインヒーロー --- */
 .main-hero {
   position: relative;
   width: 100%;
@@ -235,7 +483,7 @@ body {
 }
 
 .lead_copy {
-  color: white;
+  color: var(--bg-white);
   text-align: center;
   text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.4);
 }
@@ -244,7 +492,7 @@ body {
   font-size: 1.3rem;
   margin-bottom: 16px;
   letter-spacing: 0.1em;
-  font-family: "Shippori Antique B1", sans-serif;
+  font-family: var(--font-title);
   font-weight: 400;
 }
 
@@ -253,36 +501,44 @@ body {
   letter-spacing: 0.1em;
 }
 
-/* =========================================
-   農園コンセプト（home.html）
-   ========================================= */
+/* --- 農園コンセプト --- */
+
 .farm-concept {
-  padding: 170px 0 100px;
-  background-color: #fff;
+  padding: 130px 0 0; 
+  background-color: var(--bg-white);
 }
 
 .farm-concept-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  gap: 50px; 
 }
 
-.farm-concept .Subject_01 {
-  text-align: center;
-  margin-bottom: 30px;
+.concept-box {
+  width: 100%;
+  max-width: 500px; 
 }
+
+.farm-concept .Subject_01 { margin-bottom: 20px; }
 
 .farm-concept .Subject_01 h2 {
-  font-family: "Shippori Antique B1", sans-serif;
+  font-family: var(--font-title);
   font-weight: 400;
   font-size: 2rem;
-  color: #333;
+  color: var(--text-black);
+  line-height: 1.4;
+}
+
+/* ▼ 「見える化〜」の見出しをスマホの時だけ小さくして、変な改行を防ぐ ▼ */
+.box-safety-head .Subject_01 h2 {
+  font-size: 1.85rem; /* 元の2remから、1行に収まるサイズに縮小 */
 }
 
 .farm-concept .concept-img { 
   width: 100%;
-  max-width: 500px;
-  margin: 0 auto 40px;
   aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 8px;
@@ -297,63 +553,93 @@ body {
 
 .farm-concept .concept-text p { 
   width: 100%;
-  max-width: 500px;
-  margin: 0 auto; 
-  line-height: 1.7; 
+  line-height: 1.8; 
   font-size: 1rem;
-  color: #333;
+  color: var(--text-black);
   letter-spacing: 0.05em; 
-  text-align: left;
 }
+
+/* --- 飛び込む画像 --- */
+.jump-img {
+  width: 100%; 
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  display: block;
+}
+
+.jump-img.jump-left { align-self: flex-start; }
+.jump-img.jump-right { align-self: flex-end; }
 
 @media (min-width: 992px) {
   .farm-concept-container {
-    flex-direction: row;
-    justify-content: space-between;
-    max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px 60px; 
+    align-items: center; 
+    max-width: 1500px; 
     margin: 0 auto;
     padding: 0 40px;
   }
-  .farm-concept .concept-img {
-    width: 50%;
-    max-width: none;
-    margin: 0;
-    aspect-ratio: 4 / 3;
-  }
-  .farm-concept .concept-text {
-    width: 45%;
-  }
-  .farm-concept .Subject_01 {
-    text-align: left;
-    margin-bottom: 40px;
-  }
-  .farm-concept .Subject_01 h2 {
-    font-size: 2.5rem;
-  }
-  .farm-concept .concept-text p {
-    max-width: 100%;
-    margin: 0;
-  }
+
+  .concept-box { max-width: none; }
+  .hero-content h1 { font-size: 3rem; line-height: 1.6; }
+  .hero-content p { font-size: 1.5rem; margin-top: 50px; }
+
+  .box-cabbage { grid-column: 1 / 2; grid-row: 1 / 2; }
+  .box-about   { grid-column: 2 / 3; grid-row: 1 / 2; }
+  .box-safety-head { grid-column: 1 / 2; grid-row: 2 / 3; }
+  .box-loke2       { grid-column: 2 / 3; grid-row: 2 / 3; }
+  .box-loke1       { grid-column: 1 / 2; grid-row: 3 / 4; }
+  .box-safety-text { grid-column: 2 / 3; grid-row: 3 / 4; }
+
+  .farm-concept .concept-img { aspect-ratio: 4 / 3; }
+  .farm-concept .Subject_01 h2 { font-size: 2.5rem; }
+  .farm-concept .concept-text p { font-size: 1.25rem; line-height: 2; }
+  .box-safety-head .Subject_01 h2 { font-size: 2.2rem; }
+  .box-safety-head { margin-top: 200px; margin-left: 120px; }
 }
 
-/* =========================================
-   商品一覧（home.html）
-   ========================================= */
+/* --- 無限ループスライダー --- */
+.concept-loop-slider {
+  width: 100%;
+  overflow: hidden; 
+  margin-top: 80px; 
+  padding-bottom: 0;
+}
+
+.loop-slider-track {
+  display: flex;
+  width: max-content; 
+  animation: loopSliderLeft 25s linear infinite; 
+}
+
+.loop-slider-track img {
+  width: 250px; 
+  aspect-ratio: 1 / 1; 
+  object-fit: cover;
+  margin-right: 0; 
+  border-radius: 0; 
+}
+
+@keyframes loopSliderLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-25%); }
+}
+
+/* --- 商品一覧 --- */
 .products {
+  margin-top: 300px; 
   padding: 80px 0;
-  background-color: #fcfcfc; 
+  background-color: var(--bg-light-gray); 
 }
 
-.products .Subject_01 {
-  text-align: center; 
-  margin-bottom: 40px; 
-}
+.products .Subject_01 { text-align: center; margin-bottom: 40px; }
 
 .products .Subject_01 h2 {
   display: inline-block; 
-  font-family: "Shippori Antique B1", sans-serif;
+  font-family: var(--font-title);
   font-size: 2rem;
-  color: #333;
+  color: var(--text-black);
   background: linear-gradient(transparent 70%, #d6f68d 60%);
   padding: 0 40px; 
 }
@@ -374,7 +660,7 @@ body {
 }
 
 .product-card {
-  background-color: #fff;
+  background-color: var(--bg-white);
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -386,344 +672,287 @@ body {
   display: block;
 }
 
-.product-img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  overflow: hidden;
-}
+.product-img { width: 100%; aspect-ratio: 4 / 3; overflow: hidden; }
 
 .product-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  vertical-align: bottom;
+  width: 100%; height: 100%; object-fit: cover; vertical-align: bottom;
   transition: transform 0.3s ease;
 }
 
-.product-card:hover .product-img img {
-  transform: scale(1.05);
-}
+.product-card:hover .product-img img { transform: scale(1.05); }
 
-.product-info {
-  padding: 20px;
-}
-
-.product-info h3 {
-  font-size: 1.2rem;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: #333;
-}
-
-.product-info p {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #666;
-}
+.product-info { padding: 20px; }
+.product-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 10px; color: var(--text-black); }
+.product-info p { font-size: 0.9rem; line-height: 1.6; color: #666; }
 
 /* =========================================
-   ギフトLP（gift.html）
+   6. セット販売ページ（product_set.html）
    ========================================= */
-.gift-lp-page {
-  padding: 120px 0 80px;
-  background-color: #f5f8f0;
+.product-set-page {
+  padding-top: 70px;
+  background-color: var(--bg-white);
 }
 
-.gift-lp-container {
-  max-width: 600px; 
-  margin: 0 auto;
-  background-color: #fff;
-  padding: 50px 20px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.03);
-}
-
-.section-line {
-  border: none;
-  border-top: 1px solid #222;
-  margin: 30px 0;
-  width: 100%;
-}
-
-.gift-lp-intro {
-  text-align: center;
-  margin-bottom: 60px;
-}
-
-.gift-lp-intro .intro-title {
-  border: none; 
-  padding: 0;
-  margin: 0;
-  font-size: 1.3rem;
-  color: #2b5740;
-  font-family: "Shippori Antique B1", sans-serif;
-}
-
-.intro-text-wrap {
-  text-align: center;
-}
-
-.gift-lp-intro .intro-text {
-  text-align: left;
-  display: inline-block;
-  line-height: 2;
-  font-size: 1rem;
-  color: #333;
-}
-
-.gift-lp-flow {
-  margin-bottom: 60px;
-}
-
-.section-title {
-  text-align: center;
-  font-size: 1.3rem;
-  color: #2b5740;
-  margin-bottom: 30px;
-  font-family: "Shippori Antique B1", sans-serif;
-}
-
-.flow-steps {
+/* --- ヒーローエリア --- */
+.set-hero {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 40px;
+  margin-top: 30px; 
 }
 
-.step-item {
+.set-main-title {
+  background-color: var(--set-title-bg); 
+  color: var(--bg-white);
   text-align: center;
-  margin-bottom: 10px;
-}
-
-.step-num-wrap {
-  font-size: 1.2rem;
-  color: #2b5740;
-  margin-bottom: 15px;
-}
-
-.gift-lp-flow .step-num {
-  display: inline-block;
-  border: 1px solid #2b5740;
-  border-radius: 0;
-  width: 26px;
-  height: 26px;
-  line-height: 24px;
-  margin-right: 2px;
-  font-size: 0.9rem;
-  text-align: center;
-}
-
-.step-item p {
-  display: inline-block;
-  font-weight: 500;
-  font-size: 0.95rem;
-  text-align: left;
-}
-
-.step-note {
-  font-size: 0.8rem;
-  color: #666;
-  font-weight: normal;
-}
-
-.gift-lp-flow .step-arrow {
-  color: #3b5f4c;
-  font-size: 1.6rem;
-  transform: rotate(90deg) !important;
-  margin: 15px 0;
-}
-
-.gift-lp-catalog {
-  margin-bottom: 50px;
-}
-
-.catalog-lead {
-  text-align: center;
-  font-size: 0.95rem;
-  margin-bottom: 40px;
-  line-height: 1.6;
-}
-
-.catalog-items {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 30px;
-  width: 100%;
-}
-
-.catalog-items .item {
-  display: flex;
-  flex-direction: column;
-  padding: 15px;
-  background-color: #fff;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.03); 
-  box-sizing: border-box;
-  transition: all 0.3s ease;
-  width: 100%; 
-}
-
-.catalog-items img {
-  width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 3; 
-  object-fit: cover;
-  border: 1px solid #e0e0e0;
-  margin-bottom: 15px;
-}
-
-.catalog-items h3 {
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-bottom: 5px;
-  display: flex;
-  align-items: flex-start;
-  color: #333;
-  width: 100%;
-  text-align: left; 
-}
-
-.catalog-items h3 i {
-  color: #999;
+  padding: 15px 20px;
+  border-radius: 12px; 
   font-size: 1.3rem;
-  margin-right: 10px;
-  margin-top: 2px;
-}
-
-.catalog-items .price {
-  color: #669d84;
+  line-height: 1.5;
   font-weight: 700;
-  font-size: 1.2rem;
-  padding-left: 32px; 
-  margin-top: auto; 
-  width: 100%;
-  text-align: left; 
-}
-
-.catalog-items .item.is-selected {
-  background-color: #f4faed;
-  border: 2px solid #2b5740;
-  box-shadow: 0 4px 15px rgba(43, 87, 64, 0.15);
-}
-
-.catalog-items .item.is-selected h3 i {
-  font-weight: 900;
-  color: #2b5740;
-}
-
-.catalog-items .item.is-selected h3 i::before {
-  content: "\f14a";
-}
-
-.gift-lp-bottom {
-  margin-top: 60px;
-}
-
-.total-mockup-box {
-  border: 1px solid #333;
-  padding: 30px;
-  max-width: 300px;
-  margin: 0 auto 40px;
-  background-color: #fff;
-  font-family: "Noto Sans JP", sans-serif;
-}
-
-.mockup-row {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-  font-size: 0.95rem;
-}
-
-.mockup-dots {
-  text-align: center;
-  line-height: 1;
-  margin: 10px 0;
-  letter-spacing: 2px;
-}
-
-.mockup-line {
-  border: none;
-  border-top: 1px solid #333;
-  margin: 15px 0;
-}
-
-.mockup-total {
-  display: flex;
-  justify-content: space-between;
-  font-size: 1.2rem;
-  font-weight: 700;
-}
-
-.btn-pink {
-  display: block;
-  width: 100%;
-  max-width: 280px;
-  margin: 0 auto;
-  background-color: #e85a67;
-  color: #fff;
-  text-align: center;
-  padding: 18px 0;
-  border-radius: 4px;
-  font-weight: 700;
-  font-size: 1.1rem;
   letter-spacing: 0.1em;
-  text-decoration: none;
-  box-shadow: 0 4px 10px rgba(232, 90, 103, 0.3);
-  transition: all 0.3s ease;
+  width: 90%; 
+  margin: 0 auto 30px; 
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+  position: relative;
+  z-index: 3;
 }
 
-.btn-pink:hover {
-  background-color: #d14753;
-  transform: translateY(-2px);
+.hero-message {
+  text-align: left; 
+  color: #124d35; 
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 2;
+  letter-spacing: 0.05em;
+  width: fit-content;  
+  margin: 0 auto 70px; 
 }
 
+.hero-message p { margin-bottom: 8px; }
+
+.hero-img-area { position: relative; width: 100%; }
+
+.fukidasi-wrap {
+  position: absolute;
+  top: -65px; 
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 360px;
+  z-index: 2;
+}
+
+.fukidasi-bg { width: 100%; height: auto; display: block; }
+
+.fukidasi-text {
+  position: absolute;
+  top: 42%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #632026;
+  font-weight: 700;
+  font-size: 1.3rem; 
+  line-height: 1.4;
+  letter-spacing: 0.1em;
+  width: 100%;
+}
+
+.fukidasi-text span { font-size: 1.6rem; }
+.hero-img-wrap { width: 100%; }
+.hero-img-wrap .main-img { width: 100%; height: auto; display: block; }
+
+/* --- 商品紹介ブロック --- */
+.set-intro { padding: 20px 0 0; }
+.intro-block { margin-bottom: 50px; display: flex; flex-direction: column; }
+.intro-block .text-box { padding: 20px; border-radius: 8px; width: 90%; margin: 0 auto; margin-bottom: -55px; position: relative; z-index: 2; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+.melon-bg .text-box   { background-color: rgba(241, 248, 235, 0.65); } 
+.suika-bg .text-box   { background-color: rgba(252, 240, 242, 0.65); } 
+.pumpkin-bg .text-box { background-color: rgba(253, 245, 211, 0.65); } 
+
+.intro-block h2 { font-size: 1.15rem; font-weight: 700; margin-bottom: 12px; color: var(--text-black); }
+.intro-block p { font-size: 0.85rem; line-height: 1.7; font-weight: 700; letter-spacing: 0.05em; color: var(--text-black); }
+.intro-block .img-box { width: 100%; z-index: 1; }
+.intro-block .img-box img { width: 100%; height: auto; display: block; }
+
+/* --- 下部（ボタンと野菜） --- */
+.set-cta { text-align: center; padding: 0 0 40px; position: relative; }
+.veg-illustration { position: relative; height: 220px; width: 100%; max-width: 360px; margin: 0 auto; }
+.veg-icon { position: absolute; z-index: 1; mix-blend-mode: multiply; }
+.set-cta .veg-9 { width: 140px; top: 50px; left: 0px; }
+.set-cta .veg-8 { width: 130px; top: 30px; left: 150px; }
+.set-cta .veg-5 { width: 180px; top: 25px; right: -30px; }
+
+.btn-pink-large { display: inline-block; background-color: var(--accent-red); color: var(--bg-white); padding: 16px 16px; border-radius: 6px; font-size: 1.4rem; font-family: var(--font-title); letter-spacing: 0.1em; text-decoration: none; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); margin-top: -60px; position: relative; z-index: 2; transition: all 0.3s ease; }
+.btn-pink-large:hover { background-color: #a84b4b; transform: translateY(-2px); }
+
+.product-footer { background-image: none !important; background-color: var(--bg-white); padding-top: 30px !important; padding-bottom: 60px !important; }
+.product-footer .footer-logo img { width: 280px; }
+
+
+/* ▼ セット販売LPのPC用メディアクエリ ▼ */
 @media (min-width: 768px) {
-  .gift-lp-intro .intro-title {
-    font-size: 1.6rem;
-    letter-spacing: 0.1em;
-  }
-  
-  .gift-lp-intro .intro-text {
-    font-size: 1.05rem;
-  }
-
-  .gift-lp-container {
-    max-width: 1000px;
-    padding: 60px 50px;
-  }
-
-  .flow-steps {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-  
-  .step-item {
-    width: 22%;
-  }
-  
-  .gift-lp-flow .step-arrow {
-    transform: rotate(0deg) !important;
-    margin-top: 30px;
-  }
-  
-  .step-item p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-
-  .step-note {
-    display: block;
-    margin-top: 8px;
-  }
+  .set-hero { max-width: 1000px; margin: 120px auto 80px; align-items: flex-start; }
+  .set-main-title { position: relative; top: 0; left: 0; margin: 0 auto 40px; padding: 25px 60px; font-size: 1.8rem; width: 90%; border-radius: 8px; background-color: #008b8b; }
+  .set-main-title br { display: none; }
+  .hero-message { margin: 0; margin-top: 60px; margin-left: 5%; margin-bottom: 60px; font-size: 1.5rem; line-height: 1.8; width: auto; }
+  .hero-message .pc-inline { display: inline-block; }
+  .hero-message p { margin-bottom: 10px; }
+  .hero-img-area { position: relative; width: 100%; margin-top: 0; }
+  .fukidasi-wrap { position: absolute; top: -90px; left: auto; right: 50px; transform: none; width: 450px; max-width: none; z-index: 10; }
+  .fukidasi-text { top: 40%; font-size: 2rem; }
+  .fukidasi-text span { font-size: 2.4rem; }
+  .set-intro { padding: 60px 0; }
+  .intro-block { flex-direction: row; align-items: flex-end; max-width: 900px; margin: 0 auto 100px; }
+  .intro-block .img-box { width: 65%; }
+  .intro-block .text-box { width: 45%; padding: 40px; margin-bottom: -40px; }
+  .intro-block h2 { font-size: 1.6rem; margin-bottom: 20px; }
+  .intro-block p { font-size: 1rem; line-height: 1.8; }
+  .melon-bg .text-box, .pumpkin-bg .text-box { margin-right: -10%; }
+  .suika-bg { flex-direction: row-reverse; }
+  .suika-bg .text-box { margin-left: -10%; }
+  .set-cta { padding: 0 0 80px; }
+  .veg-illustration { max-width: 700px; height: 300px; }
+  .set-cta .veg-9 { width: 240px; top: 40px; left: 0; }
+  .set-cta .veg-8 { width: 200px; top: -30px; }
+  .set-cta .veg-5 { width: 280px; top: 50px; right: -20px; }
+  .btn-pink-large { font-size: 1.6rem; padding: 20px 80px; margin-top: -80px; }
+  .product-footer { padding-top: 50px !important; padding-bottom: 80px !important; }
 }
 
 /* =========================================
-   下層ページ共通（特定商取引法など）
+   7. 共通の下層ページ背景（お問い合わせ・法務関連）
+   ========================================= */
+/* ▼重複していたコードをここで1つにまとめました！▼ */
+.page-contact, .page-legal {
+  background-image: url('../images/common/footer_sh_bg.svg'); 
+  background-size: cover; 
+  background-position: center bottom; 
+  background-attachment: fixed; 
+  background-color: var(--bg-white);
+}
+
+@media (min-width: 992px) {
+  .page-contact, .page-legal {
+    background-image: url('../images/common/footer-bg.png'); 
+  }
+}
+
+/* 共通のフッター・大枠の背景透過 */
+.page-contact .site-footer,
+.page-legal .site-footer,
+.page-contact .contact-page,
+.page-legal .legal-page {
+  background-image: none !important;
+  background-color: transparent !important;
+}
+
+
+/* =========================================
+   8. お問い合わせページ（contact.html）
+   ========================================= */
+.contact-page {
+  padding: 120px 0 60px;
+}
+
+.contact-container {
+  max-width: 600px; 
+  margin: 0 auto;
+  background-color: rgba(255, 255, 255, 0.85); 
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); 
+  margin-top: 40px; 
+  margin-bottom: 40px; 
+}
+
+.contact-header { text-align: center; margin-bottom: 40px; }
+
+.contact-title {
+  display: inline-block; 
+  font-family: var(--font-title); 
+  font-size: 2rem;
+  color: var(--text-black);
+  background: linear-gradient(transparent 70%, #d6f68d 60%); 
+  padding: 0 40px; 
+  margin-bottom: 40px;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.contact-tel-fax { display: flex; align-items: center; justify-content: center; gap: 15px; color: var(--form-green); }
+.tel-fax-label { font-size: 1rem; font-weight: 700; line-height: 1.3; text-align: left; letter-spacing: 0.1em; flex-shrink: 0; }
+.tel-fax-num { font-size: 2.8rem; font-weight: 700; letter-spacing: 0.05em; font-family: Arial, sans-serif; white-space: nowrap; }
+
+@media (max-width: 500px) {
+  .contact-tel-fax { gap: 10px; }
+  .tel-fax-label { font-size: 0.9rem; }
+  .tel-fax-num { font-size: 1.9rem; }
+}
+
+.contact-divider { border: none; border-top: 2px solid #888; margin-bottom: 40px; }
+.contact-subtitle { text-align: center; font-size: 1.4rem; font-weight: 700; letter-spacing: 0.15em; margin-bottom: 40px; }
+.contact-form { width: 100%; }
+.form-group { margin-bottom: 30px; text-align: left; }
+.form-group label { display: block; font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; }
+.req-star { color: #c93a28; margin-left: 5px; }
+
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid var(--text-black); 
+  border-radius: 0;
+  font-family: inherit;
+  font-size: 1rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus { border-color: var(--form-green); }
+.contact-form textarea { resize: vertical; }
+
+.privacy-notice { text-align: center; font-size: 1rem; font-weight: 700; margin-bottom: 40px; }
+.privacy-notice a { color: var(--form-green); text-decoration: none; }
+.privacy-notice a:hover { text-decoration: underline; }
+
+.submit-wrap { text-align: center; }
+.btn-submit-green { background-color: var(--form-green); color: var(--bg-white); border: none; border-radius: 10px; padding: 15px 100px; font-size: 1.4rem; letter-spacing: 0.4em; cursor: pointer; transition: all 0.3s ease; margin-bottom: 15px; }
+.btn-submit-green:hover { background-color: #3b6d38; transform: translateY(-2px); }
+.req-note { font-size: 1rem; font-weight: 700; }
+
+/* =========================================
+   9. 法務関連ページ（privacy, law等）
    ========================================= */
 .legal-page {
-  padding: 140px 0 100px; 
-  background-color: #fcfcfc;
+  padding-top: 100px; 
+  padding-bottom: 60px;
+}
+
+.legal-container {
+  background-color: rgba(255, 255, 255, 0.9); 
+  max-width: 900px; 
+  margin: 0 auto;   
+  padding: 30px 20px; 
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+@media (min-width: 992px) {
+  .legal-page { padding-top: 120px; padding-bottom: 80px; }
+  .legal-container { padding: 60px; }
+}
+
+.legal-page .Subject_01 {
+  max-width: 800px;
+  margin: 0 auto 40px;
+  text-align: left;    
 }
 
 .legal-table {
@@ -731,7 +960,7 @@ body {
   max-width: 800px;
   margin: 0 auto;
   border-collapse: collapse;
-  background-color: #fff;
+  background-color: var(--bg-white);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
 
@@ -741,39 +970,16 @@ body {
   border: 1px solid #e0e0e0;
   font-size: 0.95rem;
   line-height: 1.8;
-  color: #333;
+  color: var(--text-black);
 }
 
-.legal-table th {
-  width: 30%;
-  background-color: #f5f8f0;
-  text-align: left;
-  font-weight: 700;
-  white-space: nowrap;
-}
-
-.legal-page .Subject_01 {
-  max-width: 800px;
-  margin: 0 auto 40px;
-  text-align: left;    
-}
+.legal-table th { width: 30%; background-color: #f5f8f0; text-align: left; font-weight: 700; white-space: nowrap; }
 
 @media (max-width: 767px) {
-  .legal-table th,
-  .legal-table td {
-    display: block;
-    width: 100%;
-  }
-  .legal-table th {
-    border-bottom: none;
-  }
-  .legal-table td {
-    border-top: none;
-    margin-bottom: 10px;
-  }
-  .legal-page .Subject_01 {
-    text-align: center;
-  }
+  .legal-table th, .legal-table td { display: block; width: 100%; }
+  .legal-table th { border-bottom: none; }
+  .legal-table td { border-top: none; margin-bottom: 10px; }
+  .legal-page .Subject_01 { text-align: center; }
 }
 
 .legal-text-box {
@@ -781,540 +987,11 @@ body {
   max-width: 800px;
   margin: 0 auto;
   padding: 40px;
-  background-color: #fff;
+  background-color: var(--bg-white);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
   border-radius: 4px;
 }
 
 @media (max-width: 767px) {
-  .legal-text-box {
-    padding: 20px;
-  }
-}
-
-/* =========================================
-   アニメーション用クラス・その他
-   ========================================= */
-.js-animate-img {
-  opacity: 0;
-  transform: translateY(50px);
-}
-
-/* =========================================
-   ご注文フォームページ（order.html）
-   ========================================= */
-.order-page {
-  padding: 120px 0 30px;
-  background-color: #fff;
-}
-
-.order-container {
-  max-width: 700px; 
-  margin: 0 auto;
-}
-
-.order-header {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.order-title {
-  font-size: 2rem;
-  color: #3b5f4c; 
-  letter-spacing: 0.1em;
-  margin-bottom: 20px;
-  border-bottom: 2px solid #3b5f4c;
-  display: inline-block;
-  padding: 0 40px 15px;
-  border-radius: 50%;
-}
-
-.order-desc {
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: #333;
-  margin-bottom: 30px;
-}
-
-.order-fax {
-  display: inline-block;
-  border: 1px solid #d17855; 
-  border-radius: 8px;
-  padding: 15px 40px;
-  color: #d17855;
-  background-color: #fff;
-}
-
-.order-fax .fax-label {
-  font-size: 1rem;
-  letter-spacing: 0.1em;
-}
-
-.order-fax .fax-number {
-  font-size: 1.8rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-}
-
-.form-section-title {
-  text-align: center;
-  font-size: 1.2rem;
-  color: #333;
-  letter-spacing: 0.1em;
-  margin: 50px 0 20px;
-}
-
-.form-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-top: 1px solid #ccc;
-  margin-bottom: 20px;
-}
-
-.form-table th,
-.form-table td {
-  border-bottom: 1px solid #ccc;
-  padding: 15px 10px;
-  vertical-align: middle;
-}
-
-.form-table th {
-  width: 28%;
-  text-align: center;
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: #000;
-  white-space: nowrap;
-}
-
-.form-table input[type="text"],
-.form-table input[type="email"],
-.form-table input[type="tel"] {
-  width: 100%;
-  padding: 8px 10px;
-  border: 1px solid #999; 
-  border-radius: 2px;
-  font-family: inherit;
-  font-size: 0.95rem;
-  outline: none;
-}
-
-.form-table input[type="text"]:focus,
-.form-table input[type="email"]:focus,
-.form-table input[type="tel"]:focus {
-  border-color: #3b5f4c; 
-}
-
-.input-row {
-  display: flex;
-  gap: 15px;
-}
-
-.prefix-wrap {
-  display: flex;
-  align-items: center;
-}
-
-.prefix {
-  font-weight: 700;
-  margin-right: 10px;
-}
-
-.short-input {
-  max-width: 150px; 
-}
-
-.radio-wrap {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  font-size: 0.9rem;
-  font-weight: 700;
-}
-
-.radio-wrap input[type="radio"] {
-  margin-right: 5px;
-  transform: scale(1.2); 
-}
-
-.radio-wrap .slash {
-  color: #333;
-  margin: 0 10px;
-}
-
-.checkbox-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px 10px;
-  font-size: 0.9rem;
-  font-weight: 700;
-}
-
-.checkbox-grid input[type="radio"] {
-  margin-right: 5px;
-}
-
-@media (max-width: 500px) {
-  .checkbox-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
-  .form-table th,
-  .form-table td {
-    display: block; 
-    width: 100%;    
-    text-align: left; 
-  }
-  .form-table th {
-    border-bottom: none; 
-    padding: 15px 10px 5px; 
-    font-size: 0.9rem;
-  }
-  .form-table td {
-    padding: 5px 10px 15px;
-  }
-}
-
-.submit-btn-wrap {
-  text-align: center;
-  margin-top: 50px;
-}
-
-.btn-submit {
-  background-color: #d86966; 
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  padding: 18px 60px;
-  font-size: 1.5rem;
-  letter-spacing: 0.1em;
-  cursor: pointer;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-  transition: all 0.3s ease;
-}
-
-.btn-submit:hover {
-  background-color: #c05c59;
-  transform: translateY(-2px);
-}
-
-/* =========================================
-   お問い合わせページ（contact.html）
-   ========================================= */
-.contact-page {
-  padding: 120px 0 60px;
-  background-color: #fff;
-}
-
-.contact-container {
-  max-width: 600px; /* 縦積みフォームが間延びしないように幅を絞る */
-  margin: 0 auto;
-}
-
-/* --- ヘッダー部分（タイトル・電話番号） --- */
-.contact-header {
-  text-align: center;
-  margin-bottom: 40px;
-}
-
-.contact-title {
-  /* ▼ 昔風の影や角丸をリセット ▼ */
-  box-shadow: none;
-  border-radius: 0;
-  
-  /* ▼ 商品一覧と同じ「マーカー風」の魔法！ ▼ */
-  display: inline-block; 
-  font-family: "Shippori Antique B1", sans-serif; /* 統一感のあるフォント */
-  font-size: 2rem;
-  color: #333;
-  background: linear-gradient(transparent 70%, #d6f68d 60%); /* 下半分マーカー */
-  padding: 0 40px; 
-  margin-bottom: 40px;
-}
-
-.contact-tel-fax {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  color: #4b8a47; /* 濃い緑色 */
-}
-
-.tel-fax-label {
-  font-size: 1rem;
-  font-weight: 700;
-  line-height: 1.3;
-  text-align: left;
-  letter-spacing: 0.1em;
-  flex-shrink: 0; /* ★追加：狭くなっても押しつぶされないようにする魔法 */
-}
-
-.tel-fax-num {
-  font-size: 2.8rem; /* PCでは大きなサイズ */
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  font-family: Arial, sans-serif;
-  white-space: nowrap; /* ★追加：絶対に改行（折り返し）させない魔法 */
-}
-
-/* ▼ ★追加：スマホの狭い画面の時の調整 ▼ */
-@media (max-width: 500px) {
-  .contact-tel-fax {
-    gap: 10px; /* 文字同士の隙間を少し狭める */
-  }
-  .tel-fax-label {
-    font-size: 0.9rem; /* ラベルを少し小さく */
-  }
-  .tel-fax-num {
-    font-size: 1.9rem; /* 電話番号を画面に収まるサイズに小さくする */
-  }
-}
-/* --- 区切り線とサブタイトル --- */
-.contact-divider {
-  border: none;
-  border-top: 2px solid #888;
-  margin-bottom: 40px;
-}
-
-.contact-subtitle {
-  text-align: center;
-  font-size: 1.4rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  margin-bottom: 40px;
-}
-
-/* --- フォーム入力エリア（縦積み） --- */
-.contact-form {
-  width: 100%;
-}
-
-.form-group {
-  margin-bottom: 30px;
-  text-align: left;
-}
-
-.form-group label {
-  display: block;
-  font-weight: 700;
-  font-size: 1.05rem;
-  margin-bottom: 10px;
-}
-
-.req-star {
-  color: #c93a28; /* 画像と同じ赤色 */
-  margin-left: 5px;
-}
-
-.contact-form input[type="text"],
-.contact-form input[type="email"],
-.contact-form textarea {
-  width: 100%;
-  padding: 15px;
-  border: 1px solid #333; /* しっかりとした黒い枠線 */
-  border-radius: 0;
-  font-family: inherit;
-  font-size: 1rem;
-  outline: none;
-  box-sizing: border-box;
-}
-
-.contact-form input:focus,
-.contact-form textarea:focus {
-  border-color: #4b8a47; /* 入力中は緑色に */
-}
-
-.contact-form textarea {
-  resize: vertical;
-}
-
-/* --- プライバシーポリシー注記 --- */
-.privacy-notice {
-  text-align: center;
-  font-size: 1rem;
-  font-weight: 700;
-  margin-bottom: 40px;
-}
-
-.privacy-notice a {
-  color: #4b8a47; /* 緑色のリンク */
-  text-decoration: none;
-}
-
-.privacy-notice a:hover {
-  text-decoration: underline;
-}
-
-/* --- 送信ボタンエリア --- */
-.submit-wrap {
-  text-align: center;
-}
-
-.btn-submit-green {
-  background-color: #4b8a47; /* 画像と同じ緑色 */
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 15px 100px;
-  font-size: 1.4rem;
-  letter-spacing: 0.4em;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  margin-bottom: 15px;
-}
-
-.btn-submit-green:hover {
-  background-color: #3b6d38;
-  transform: translateY(-2px);
-}
-
-.req-note {
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-/* =========================================
-   フッター（.site-footer）
-   ========================================= */
-.site-footer {
-  position: relative;
-  padding: 80px 20px 120px; 
-  background-color: #fff;
-  text-align: center;
-  overflow: hidden;
-  
-  background-image: url("../images/common/footer-s_bg.png");
-  background-size: 140% auto; 
-  background-position: center bottom;
-  background-repeat: no-repeat;
-}
-
-@media (min-width: 768px) {
-  .site-footer {
-    padding: 80px 20px 70px; 
-    background-image: url("../images/common/footer-bg.png");
-    background-size: cover; 
-    background-position: center bottom;
-  }
-}
-
-.footer-container {
-  position: relative;
-  z-index: 10;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.footer-logo {
-  display: inline-block;
-  margin-bottom: 20px;
-}
-
-.footer-logo img {
-  width: 200px; 
-  max-width: 100%; 
-  height: auto;
-}
-
-.footer-sns {
-  list-style: none;
-  display: flex;
-  justify-content: center;
-  gap: 50px; 
-  margin-bottom: 40px;
-}
-
-.footer-sns a {
-  color: #333;
-  font-size: 38px; 
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.footer-sns a:hover {
-  color: #669d84;
-  transform: translateY(-3px);
-}
-
-.footer-info {
-  margin-bottom: 50px;
-  font-size: 0.95rem;
-  line-height: 1.7;
-  letter-spacing: 0.05em;
-  color: #333;
-}
-
-.business-hours {
-  margin-top: 20px;
-}
-
-.business-hours span {
-  font-size: 0.85rem;
-}
-
-.footer-btns {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 40px;
-}
-
-.btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  max-width: 220px;
-  padding: 16px 20px;
-  font-size: 0.9rem;
-  letter-spacing: 0.1em;
-  text-decoration: none;
-  border-radius: 2px;
-  transition: all 0.3s ease;
-}
-
-.btn-filled {
-  background-color: #669d84;
-  color: #fff;
-  border: 2px solid #669d84;
-  border-radius: 10px;
-}
-
-.btn-filled:hover {
-  opacity: 0.5; 
-}
-
-.btn-outline, .btn-outline02 {
-  background-color: #fff;
-  color: #669d84;
-  border: 1px solid #669d84;
-}
-
-.btn-outline:hover, .btn-outline02:hover {
-  background-color: #cccccc;
-  border-color: #cccccc;
-  color: #fff;
-}
-
-.copyright {
-  position: absolute; 
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 15px 0;
-  background-color: rgba(3, 117, 22, 0.95);
-  color: #fff;
-  font-size: 0.8rem;
-  letter-spacing: 0.1em;
-  text-align: center;
-}
-
-/* --- 送信ボタンが「無効（disabled）」の時の見た目 --- */
-.btn-submit:disabled {
-  background-color: #cccccc; /* グレーにする */
-  color: #666666; /* 文字も少し暗くする */
-  cursor: not-allowed; /* マウスを乗せても「禁止マーク」にする */
-  box-shadow: none; /* 影を消す */
-  transform: none; /* マウスを乗せてもフワッと浮かないようにする */
+  .legal-text-box { padding: 20px; }
 }

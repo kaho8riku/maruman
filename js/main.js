@@ -36,14 +36,14 @@
         onComplete: goToNextPage
       });
 
-      // 【スマホ調整用】 x（横の移動距離）、y（縦の移動距離）を微調整してください！
-      tlMobile.fromTo('.veg-1', { x: -120, y: -200 }, { x: 130, y: 320, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-2', { x: -100, y: 130 }, { x: 200, y: 150, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-3', { x: -50, y: -90 }, { x: 120, y: -450, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-4', { x: 130, y: -70 }, { x: -120, y: 300, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-5', { x: 80, y: 100 }, { x: -180, y: -320, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-6', { x: 120, y: -200 }, { x: 150, y: -300, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-7', { x: 0, y: -100 }, { x: -200, y: 200, duration: 2, ease: 'power2.out' }, 'start');
+      // 【スマホ調整用】 移動しながら回転（rotation）を追加！
+      tlMobile.fromTo('.veg-1', { x: -120, y: -200, rotation: 0 }, { x: 130, y: 320, rotation: 360, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-2', { x: -100, y: 130, rotation: 0 }, { x: 200, y: 150, rotation: -360, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-3', { x: -50, y: -90, rotation: 0 }, { x: 120, y: -450, rotation: 360, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-4', { x: 130, y: -70, rotation: 0 }, { x: -120, y: 300, rotation: -360, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-5', { x: 80, y: 100, rotation: 0 }, { x: -180, y: -320, rotation: 360, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-6', { x: 120, y: -200, rotation: 0 }, { x: 150, y: -300, rotation: -360, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-7', { x: 0, y: -100, rotation: 0 }, { x: -200, y: 200, rotation: 360, duration: 2, ease: 'power2.out' }, 'start');
 
       // スクロールで文字が消え、ロゴが出る
       tlMobile.to('.js-animate-scroll', { opacity: 0, visibility: 'hidden', duration: 0.5 }, 'start+=1');
@@ -62,14 +62,14 @@
         onComplete: goToNextPage
       });
 
-      // 【PC調整用】 （元々のダイナミックな動きの数値です！）
-      tlPC.fromTo('.veg-1', { x: -300, y: 270 }, { x: 0, y: -350, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-2', { x: 300, y: 250 }, { x: 250, y: -300, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-3', { x: -140, y: -250 }, { x: 420, y: -200, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-4', { x: 250, y: 0 }, { x: -250, y: -250, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-5', { x: -30, y: -30 }, { x: -250, y: 260, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-6', { x: 200, y: -300 }, { x: -500, y: -200, duration: 2, ease: 'power2.out' }, 'start')
-        .fromTo('.veg-7', { x: -400, y: -350 }, { x: 250, y: 200, duration: 2, ease: 'power2.out' }, 'start');
+      // 【PC調整用】 移動しながら回転（rotation）を追加！
+      tlPC.fromTo('.veg-1', { x: -300, y: 270, rotation: 0 }, { x: 0, y: -350, rotation: 360, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-2', { x: 300, y: 250, rotation: 0 }, { x: 250, y: -300, rotation: -360, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-3', { x: -140, y: -250, rotation: 0 }, { x: 420, y: -200, rotation: 360, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-4', { x: 250, y: 0, rotation: 0 }, { x: -250, y: -250, rotation: -360, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-5', { x: -30, y: -30, rotation: 0 }, { x: -250, y: 260, rotation: 360, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-6', { x: 200, y: -300, rotation: 0 }, { x: -500, y: -200, rotation: -360, duration: 2, ease: 'power2.out' }, 'start')
+        .fromTo('.veg-7', { x: -400, y: -350, rotation: 0 }, { x: 250, y: 200, rotation: 360, duration: 2, ease: 'power2.out' }, 'start');
 
       // スクロールで文字が消え、ロゴが出る
       tlPC.to('.js-animate-scroll', { opacity: 0, visibility: 'hidden', duration: 0.5 }, 'start+=1');
