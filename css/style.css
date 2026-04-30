@@ -827,18 +827,23 @@ body {
 /* =========================================
    7. 共通の下層ページ背景（お問い合わせ・法務関連）
    ========================================= */
-/* ▼重複していたコードをここで1つにまとめました！▼ */
 .page-contact, .page-legal {
   background-image: url('../images/common/footer_sh_bg.svg'); 
   background-size: cover; 
   background-position: center bottom; 
-  background-attachment: fixed; 
+  
+  /* ▼ ★ここを fixed から scroll に変更します！ ▼ */
+  background-attachment: scroll; 
+  
   background-color: var(--bg-white);
 }
 
 @media (min-width: 992px) {
   .page-contact, .page-legal {
     background-image: url('../images/common/footer-bg.png'); 
+    
+    /* ▼ PC版（バグが起きない）では、背景固定を復活させます ▼ */
+    background-attachment: fixed; 
   }
 }
 
