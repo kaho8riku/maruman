@@ -19,6 +19,10 @@
       }, 1000); 
     };
 
+    // ▼ ★追加の保険！画面や文字を「タップ」しても次のページに進めるようにする ▼
+    document.querySelector('.js-animate-scroll').addEventListener('click', goToNextPage);
+    document.querySelector('.hero').addEventListener('click', goToNextPage);
+
     // ==================================================
     // ★ ここから画面サイズによって動きを分ける魔法 ★
     // ==================================================
@@ -31,7 +35,12 @@
       
       const tlMobile = gsap.timeline({
         scrollTrigger: {
-          trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1, pin: true
+          trigger: '.hero', 
+          start: 'top top', 
+          // ▼ ★変更！古いスマホが計算しやすいように「画面1個分(+=100%)」と直接指定する ▼
+          end: '+=100%', 
+          scrub: 1, 
+          pin: true
         },
         onComplete: goToNextPage
       });
@@ -57,7 +66,12 @@
       
       const tlPC = gsap.timeline({
         scrollTrigger: {
-          trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 1, pin: true
+          trigger: '.hero', 
+          start: 'top top', 
+          // ▼ ★変更！PC版も揃えておきます ▼
+          end: '+=100%', 
+          scrub: 1, 
+          pin: true
         },
         onComplete: goToNextPage
       });
