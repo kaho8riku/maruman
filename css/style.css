@@ -827,27 +827,36 @@ body {
 /* =========================================
    7. 共通の下層ページ背景（お問い合わせ・法務関連）
    ========================================= */
+
+/* ▼ 1. 大元の背景色は「透明」にしておきます ▼ */
 .page-contact, .page-legal {
+  background-color: transparent;
+}
+
+/* ▼ 2. 魔法の裏ワザ：画面固定用の「専用レイヤー」を作ります！ ▼ */
+.page-contact::before, .page-legal::before {
+  content: "";
+  position: fixed; /* ここで画面に固定！iOSバグも起きません */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh; /* スマホの画面の高さにピッタリ合わせる */
+  background-color: var(--bg-white); /* 白背景をここに敷く */
   background-image: url('../images/common/footer_sh_bg.svg'); 
   background-size: cover; 
   background-position: center bottom; 
-  
-  /* ▼ ★ここを fixed から scroll に変更します！ ▼ */
-  background-attachment: scroll; 
-  
-  background-color: var(--bg-white);
+  z-index: -1; /* 全てのコンテンツの一番「裏」に配置 */
+  pointer-events: none; /* クリックの邪魔をしないようにする */
 }
 
+/* ▼ 3. PC版（992px以上）の時の画像切り替え ▼ */
 @media (min-width: 992px) {
-  .page-contact, .page-legal {
+  .page-contact::before, .page-legal::before {
     background-image: url('../images/common/footer-bg.png'); 
-    
-    /* ▼ PC版（バグが起きない）では、背景固定を復活させます ▼ */
-    background-attachment: fixed; 
   }
 }
 
-/* 共通のフッター・大枠の背景透過 */
+/* 共通のフッター・大枠の背景透過（そのまま残す） */
 .page-contact .site-footer,
 .page-legal .site-footer,
 .page-contact .contact-page,
