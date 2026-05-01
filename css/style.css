@@ -714,12 +714,12 @@ body {
   text-align: center;
   padding: 15px 20px;
   border-radius: 12px; 
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   line-height: 1.5;
   font-weight: 700;
   letter-spacing: 0.1em;
   width: 90%; 
-  margin: 0 auto 30px; 
+  margin: 0 auto 60px; 
   box-shadow: 0 6px 12px rgba(0,0,0,0.15);
   position: relative;
   z-index: 3;
@@ -730,13 +730,13 @@ body {
   color: #124d35; 
   font-weight: 700;
   font-size: 1.05rem;
-  line-height: 2;
+  line-height: 1.5;
   letter-spacing: 0.05em;
   width: fit-content;  
-  margin: 0 auto 70px; 
+  margin: 0 auto 100px; 
 }
 
-.hero-message p { margin-bottom: 8px; }
+.hero-message p { margin-bottom: 10px; }
 
 .hero-img-area { position: relative; width: 100%; }
 
@@ -754,7 +754,7 @@ body {
 
 .fukidasi-text {
   position: absolute;
-  top: 42%; 
+  top: 43%; 
 
   /* ▼ ★変更：50%から0にします ▼ */
   left: 0; 
@@ -764,7 +764,7 @@ body {
   text-align: center;
   color: #632026;
   font-weight: 700;
-  font-size: 1.3rem; 
+  font-size: 1.5rem; 
   line-height: 1.4;
   letter-spacing: 0.1em;
   width: 100%;
