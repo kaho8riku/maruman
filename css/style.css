@@ -755,8 +755,12 @@ body {
 .fukidasi-text {
   position: absolute;
   top: 42%; 
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+  /* ▼ ★変更：50%から0にします ▼ */
+  left: 0; 
+  /* ▼ ★変更：横の移動(-50%)をなくし、縦の移動(Y)だけにします ▼ */
+  transform: translateY(-50%); 
+
   text-align: center;
   color: #632026;
   font-weight: 700;
